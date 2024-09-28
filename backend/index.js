@@ -71,4 +71,27 @@ app.post("/register", async (req, resp) => {
         resp.send("Something Went Wrong");
     }
 });
+
+app.get("/users", async (req, resp) => {
+    try {
+        const users = await User.find(); // Obtener todos los usuarios
+        resp.json(users); // Devolver la lista de usuarios
+    } catch (error) {
+        resp.status(500).send("Error al obtener usuarios");
+    }
+});
+
+app.get("/user/:name", async (req, resp) => {
+    try {
+        const user = await User.findOne({ name: req.params.name }); // Buscar usuario por nombre
+        if (user) {
+            resp.json({ email: user.email }); // Devolver el correo electrónico
+        } else {
+            resp.status(404).send("Usuario no encontrado");
+        }
+    } catch (error) {
+        resp.status(500).send("Error al buscar usuario");
+    }
+});
+
 app.listen(5000);

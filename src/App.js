@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
+import styles from '../src/App.css';
 
 
 const App = () => {
@@ -46,6 +46,7 @@ const App = () => {
             <h1>Registro de Usuario</h1>
             <form onSubmit={handleRegister}>
                 <input 
+                className={styles.input}
                     type="text" 
                     placeholder="Nombre" 
                     value={name} 

@@ -1,5 +1,6 @@
 body {
   color: red;
+  background-color: black;
 
   input {
     color: blue;
@@ -9,16 +10,16 @@ body {
 
   button {
     align-items: center;
-                    border: 1px solid black;
-                    border-radius: 1.5rem;
-                    cursor: pointer;
-                    display: -webkit-box;
-                    display: -ms-flexbox;
-                    display: flex;;
-                    font-size: 1.2rem;
-                    height: 3rem;
-                    justify-content: center;
-                    width: 15rem;
-                    background-color: white;
+    border: 1px solid black;
+    border-radius: 1.5rem;
+    cursor: pointer;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    font-size: 1.2rem;
+    height: 3rem;
+    justify-content: center;
+    width: 15rem;
+    background-color: white;
   }
 }

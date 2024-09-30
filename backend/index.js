@@ -15,10 +15,7 @@ const connectToMongo = async () => {
       console.error('Error al conectar a MongoDB:', error.message);
     }
   };
-
   connectToMongo();
-
-
 // Schema for users of app
 const UserSchema = new mongoose.Schema({
     name: {
@@ -35,8 +32,18 @@ const UserSchema = new mongoose.Schema({
         default: Date.now,
     },
 });
+
 const User = mongoose.model('users', UserSchema);
 User.createIndexes();
+
+const RespuestaSchema = new mongoose.Schema({
+    combinacion: String,
+    veredicto: String
+});
+
+const Respuesta = mongoose.model('respuestas', RespuestaSchema);
+Respuesta.createIndexes();
+
 
 // For backend and express
 const express = require('express');
@@ -81,6 +88,7 @@ app.get("/users", async (req, resp) => {
     }
 });
 
+
 app.get("/user/:name", async (req, resp) => {
     try {
         const user = await User.findOne({ name: req.params.name }); // Buscar usuario por nombre
@@ -91,6 +99,28 @@ app.get("/user/:name", async (req, resp) => {
         }
     } catch (error) {
         resp.status(500).send("Error al buscar usuario");
+    }
+});
+
+app.get("/respuestas", async (req, resp) => {
+    try {
+        const respuestas = await Respuesta.find(); // Obtener todos los usuarios
+        resp.json(respuestas); // Devolver la lista de usuarios
+    } catch (error) {
+        resp.status(500).send("Error al obtener veredictos");
+    }
+});
+
+app.get("/respuesta/:combinacion", async (req, resp) => {
+    try {
+        const respuesta = await Respuesta.findOne({ combinacion: req.params.combinacion }); // Buscar usuario por nombre
+        if (respuesta) {
+            resp.json({ veredicto: respuesta.veredicto }); // Devolver el correo electrónico
+        } else {
+            resp.status(404).send("Veredicto no encontrado");
+        }
+    } catch (error) {
+        resp.status(500).send("Error al buscar veredicto");
     }
 });
 
